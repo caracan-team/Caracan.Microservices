@@ -72,14 +72,14 @@ namespace NextCloud.Lib.Client
             }
         }
 
-        public async Task Delete(string filePath)
+        public async Task Delete(string relativeFilePath)
         {
             using (var client = new WebDavClient(_webDavClientParams))
             {
-                var res = await client.Delete(filePath);
+                var res = await client.Delete(relativeFilePath);
 
                 if (res.StatusCode == 404)
-                    throw new FileNotFoundException($"Not found {filePath}.");
+                    throw new FileNotFoundException($"Not found {relativeFilePath}.");
 
                 if (res.StatusCode != 204)
                 {

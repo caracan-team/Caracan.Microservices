@@ -44,7 +44,7 @@ namespace MediaService.Application.Services
             if(String.IsNullOrEmpty(filePath))
                 throw new ArgumentException("Path to file cannot be empty!");
 
-            await _nextCloudClient.Delete(filePath);
+            await _nextCloudClient.Delete($".{filePath}");
         }
 
         public async Task<(Stream, string)> DownloadFile(string filePath)
@@ -60,8 +60,11 @@ namespace MediaService.Application.Services
 
         public async Task<IEnumerable<string>> GetFilesList(string folderPath)
         {
-            if(string.IsNullOrEmpty(folderPath))
-                throw new ArgumentException("Folder path cannot be empty.");
+            if (string.IsNullOrEmpty(folderPath))
+            {
+                _logger.LogInformation("Empty folder path. Selecting root path.");
+                folderPath = "/";
+            }
 
             try
             {

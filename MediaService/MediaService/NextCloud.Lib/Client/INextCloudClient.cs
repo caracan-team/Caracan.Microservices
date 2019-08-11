@@ -8,7 +8,7 @@ namespace NextCloud.Lib.Client
     {
         Task UploadFile(Stream streamFile, string relativeFilePath);
         Task MakeCollection(string folderPath);
-        Task Delete(string filePath);
+        Task Delete(string relativeFilePath);
         Task<Stream> DownloadFile(string relativeFilePath);
         Task<IEnumerable<string>> GetFilesList(string relativeFolderPath);
     }
