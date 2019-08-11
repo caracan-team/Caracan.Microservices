@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  mediaservice:
+    image: mediaservice:latest
+    build:
+      context: ../../
+      dockerfile: MediaService/MediaService/MediaService/Dockerfile
+    container_name: mediaService 
+    ports:
+      - "5080:5080"
+    environment:
+      - NextCloudConfig__UserName=admin
+      - NextCloudConfig__Password=admin
+      - NextCloudConfig__Host=nextcloud
+      - NextCloudConfig__Port=80
+    networks:
+      - my-proxy-net
+
+networks:
+  my-proxy-net:
+    external:
+      name: custom_network
